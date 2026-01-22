@@ -1,0 +1,594 @@
+<div class="designer-overlay">
+
+  <!-- CLOSE BUTTON -->
+  <button class="designer-close" onclick="closeDesigner()">
+    ✕
+  </button>
+
+  <div class="bg-blob"></div>
+
+  <div class="app-shell">
+
+    <div class="top-header">
+      <div class="container-fluid py-2 px-3 d-flex align-items-center justify-content-between gap-3 flex-wrap">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <div class="brand-pill">
+            <div class="brand-logo"><i class="fa-solid fa-droplet"></i></div>
+            <div>
+              <p class="brand-title">SpringWater Promotions</p>
+              <p class="brand-sub">Label Studio 2026</p>
+            </div>
+          </div>
+
+          <div class="status-pill" id="saveStatus">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Saved</span>
+            <span class="opacity-50">•</span>
+            <span id="statusTime" class="opacity-75">Just now</span>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="btn btn-light border rounded-pill fw-bold px-3" onclick="openDrafts()">
+            <i class="fa-solid fa-folder-open me-2"></i> Drafts
+          </button>
+          <button class="btn btn-light border rounded-pill fw-bold px-3" onclick="openExport()">
+            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i> Export
+          </button>
+          <button class="btn btn-outline-secondary rounded-pill fw-bold px-3" onclick="openShortcuts()">
+            <i class="fa-regular fa-circle-question me-2"></i> Shortcuts
+          </button>
+        </div>
+      </div>
+
+      <div class="steps-bar">
+        <div class="container-fluid px-3">
+          <div class="d-flex align-items-center justify-content-between gap-3 overflow-auto">
+            <div class="step-item"><div class="step-icon"><i class="fa-solid fa-check"></i></div> 1. Size</div>
+            <div class="step-item"><div class="step-icon"><i class="fa-solid fa-check"></i></div> 2. Style</div>
+            <div class="step-item active"><div class="step-icon">3</div> <strong>Design Label</strong></div>
+            <div class="step-item"><div class="step-icon">4</div> Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="designer-layout">
+
+      <!-- LEFT -->
+      <div class="panel">
+        <div class="panel-header">
+          <span><i class="fa-solid fa-toolbox me-2"></i> Toolbox</span>
+          <span class="text-muted" style="font-size:0.75rem; font-weight:800;">v2026</span>
+        </div>
+        <div class="panel-body">
+
+          <span class="prop-label">Start with a template</span>
+          <div class="template-scroller">
+            <div class="template-thumb" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);" onclick="loadTemplate('fresh')">
+              <div class="template-label">Fresh</div>
+            </div>
+            <div class="template-thumb" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);" onclick="loadTemplate('minimal')">
+              <div class="template-label">Minimal</div>
+            </div>
+            <div class="template-thumb" style="background: linear-gradient(135deg, #0f172a 0%, #111827 100%);" onclick="loadTemplate('elite')">
+              <div class="template-label">Elite</div>
+            </div>
+            <div class="template-thumb" style="background: linear-gradient(135deg, #0066ff 0%, #00d2ff 100%);" onclick="loadTemplate('aqua')">
+              <div class="template-label">Aqua</div>
+            </div>
+            <div class="template-thumb" style="background: radial-gradient(circle at 25% 20%, #34d399, #059669, #064e3b);" onclick="loadTemplate('organic')">
+              <div class="template-label">Organic</div>
+            </div>
+            <div class="template-thumb" style="background: linear-gradient(135deg, #f97316, #fb7185);" onclick="loadTemplate('sunset')">
+              <div class="template-label">Sunset</div>
+            </div>
+            <div class="template-thumb" style="background: linear-gradient(135deg, #111827, #6d28d9);" onclick="loadTemplate('night')">
+              <div class="template-label">Night</div>
+            </div>
+          </div>
+
+          <span class="prop-label mt-2">Add elements</span>
+          <div class="tools-grid">
+            <div class="tool-card" onclick="addText()">
+              <i class="fa-solid fa-font"></i>
+              <span>Text</span>
+            </div>
+
+            <div class="tool-card" onclick="document.getElementById('imgInput').click()">
+              <i class="fa-regular fa-image"></i>
+              <span>Photo</span>
+              <input type="file" id="imgInput" style="display:none" accept="image/*">
+            </div>
+
+            <div class="tool-card" onclick="addShape('rect')">
+              <i class="fa-regular fa-square"></i>
+              <span>Box</span>
+            </div>
+
+            <div class="tool-card" onclick="addShape('circle')">
+              <i class="fa-regular fa-circle"></i>
+              <span>Circle</span>
+            </div>
+
+            <div class="tool-card" onclick="showQRCodeModal()">
+              <i class="fa-solid fa-qrcode"></i>
+              <span>QR Code</span>
+            </div>
+
+            <div class="tool-card" onclick="showClipArtModal()">
+              <i class="fa-solid fa-icons"></i>
+              <span>Clipart</span>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <span class="prop-label">Quick align</span>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('left')"><i class="fa-solid fa-align-left me-2"></i>Left</button>
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('center')"><i class="fa-solid fa-align-center me-2"></i>Center</button>
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('right')"><i class="fa-solid fa-align-right me-2"></i>Right</button>
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('top')"><i class="fa-solid fa-arrow-up me-2"></i>Top</button>
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('middle')"><i class="fa-solid fa-arrows-up-down me-2"></i>Middle</button>
+              <button class="btn btn-light border rounded-pill fw-bold" onclick="alignActive('bottom')"><i class="fa-solid fa-arrow-down me-2"></i>Bottom</button>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <span class="prop-label">Background</span>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+              <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold" onclick="setBg('#ffffff')">White</button>
+              <button class="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold" onclick="setBg('#0f172a')">Ink</button>
+              <button class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="setBg('#0066ff')">Blue</button>
+              <input type="color" class="form-control form-control-color" value="#ffffff" oninput="setBg(this.value)" title="Pick background color">
+            </div>
+          </div>
+
+          <div class="mt-4 hint-card">
+            Tip: Use <span class="kbd">Ctrl</span> + <span class="kbd">S</span> to save a draft, <span class="kbd">Ctrl</span> + <span class="kbd">Z</span> to undo, arrows to nudge.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CENTER -->
+      <div class="center-stage">
+
+        <div class="action-bar">
+          <div class="action-left">
+            <button class="icon-btn" onclick="undo()" title="Undo (Ctrl+Z)"><i class="fa-solid fa-rotate-left"></i></button>
+            <button class="icon-btn" onclick="redo()" title="Redo (Ctrl+Shift+Z)"><i class="fa-solid fa-rotate-right"></i></button>
+
+            <div class="vr-separator"></div>
+
+            <button class="icon-btn" onclick="copyObj()" title="Copy (Ctrl+C)"><i class="fa-regular fa-copy"></i></button>
+            <button class="icon-btn" onclick="pasteObj()" title="Paste (Ctrl+V)"><i class="fa-regular fa-clipboard"></i></button>
+            <button class="icon-btn danger" onclick="deleteObj()" title="Delete (Del)"><i class="fa-solid fa-trash"></i></button>
+
+            <div class="vr-separator"></div>
+
+            <button class="icon-btn" id="gridBtn" onclick="toggleGrid()" title="Toggle grid (Ctrl+G)"><i class="fa-solid fa-border-all"></i></button>
+            <button class="icon-btn" id="snapBtn" onclick="toggleSnap()" title="Snap on/off"><i class="fa-solid fa-magnet"></i></button>
+            <button class="icon-btn" id="guidesBtn" onclick="toggleGuides()" title="Center guides"><i class="fa-solid fa-crosshairs"></i></button>
+
+            <div class="vr-separator"></div>
+
+            <button class="icon-btn" id="safeBtn" onclick="toggleSafe()" title="Safe area overlay"><i class="fa-solid fa-shield-halved"></i></button>
+            <button class="icon-btn" id="bleedBtn" onclick="toggleBleed()" title="Bleed overlay"><i class="fa-solid fa-scissors"></i></button>
+
+            <div class="vr-separator"></div>
+
+            <button class="icon-btn" onclick="centerActive()" title="Center selected"><i class="fa-solid fa-bullseye"></i></button>
+            <button class="icon-btn" onclick="fitToStage()" title="Fit to screen"><i class="fa-solid fa-expand"></i></button>
+            <button class="icon-btn" onclick="resetCanvas()" title="Reset canvas"><i class="fa-solid fa-eraser"></i></button>
+          </div>
+
+          <div class="action-right">
+            <button class="btn btn-light border rounded-pill fw-bold px-3" onclick="quickAddBrandBlock()">
+              <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Brand Block
+            </button>
+            <button class="btn btn-primary rounded-pill fw-bold px-3" onclick="openExport()">
+              <i class="fa-solid fa-arrow-up-right-from-square me-2"></i> Export
+            </button>
+          </div>
+        </div>
+
+        <div class="canvas-area">
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <div class="canvas-card">
+              <canvas id="c"></canvas>
+            </div>
+
+            <div id="gridOverlay" class="grid-overlay"></div>
+
+            <div id="centerGuides" class="center-guides">
+              <div class="v"></div>
+              <div class="h"></div>
+            </div>
+
+            <div id="safeOverlay" class="safe-overlay"></div>
+            <div id="bleedOverlay" class="bleed-overlay"></div>
+          </div>
+        </div>
+
+        <div class="zoom-bar">
+          <button class="pill-btn" onclick="zoomOut()"><i class="fa-solid fa-magnifying-glass-minus me-2"></i>Zoom out</button>
+          <button class="pill-btn" onclick="zoomReset()"><i class="fa-solid fa-rotate me-2"></i><span id="zoomPct">100%</span></button>
+          <button class="pill-btn" onclick="zoomIn()"><i class="fa-solid fa-magnifying-glass-plus me-2"></i>Zoom in</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="panel">
+        <div class="panel-header">
+          <span><i class="fa-solid fa-sliders me-2"></i> Editor</span>
+          <span class="text-muted" style="font-size:0.75rem; font-weight:800;" id="selectionBadge">No selection</span>
+        </div>
+
+        <div class="panel-body">
+          <ul class="nav nav-pills mb-3 gap-2" id="editorTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tabProps" type="button" role="tab">
+                Properties
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tabLayers" type="button" role="tab">
+                Layers
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <!-- PROPS TAB -->
+            <div class="tab-pane fade show active" id="tabProps" role="tabpanel">
+
+              <div id="no-selection" class="hint-card">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="brand-logo" style="width:44px;height:44px;border-radius:16px;">
+                    <i class="fa-solid fa-arrow-pointer"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight:900;">Select an element</div>
+                    <div style="color:#64748b;">Click any item on the label to edit color, size, fonts, and layering.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="prop-controls" style="display:none;">
+
+                <div class="prop-row">
+                  <span class="prop-label">Name</span>
+                  <input class="form-control" id="objName" placeholder="Layer name" oninput="setName(this.value)">
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Fill</span>
+                  <input type="color" id="fillColor" class="form-control form-control-color w-100" oninput="updateProp('fill', this.value)">
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Stroke</span>
+                  <div class="d-flex gap-2 align-items-center">
+                    <input type="color" id="strokeColor" class="form-control form-control-color" oninput="updateProp('stroke', this.value)">
+                    <input type="number" id="strokeWidth" class="form-control" min="0" max="40" step="1" placeholder="Width" oninput="updateProp('strokeWidth', clampNum(this.value,0,40))">
+                  </div>
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Opacity</span>
+                  <input type="range" class="form-range" id="opacity" min="0" max="1" step="0.05" oninput="updateProp('opacity', clampNum(this.value,0,1))">
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Position and size</span>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <input type="number" class="form-control" id="posX" placeholder="X" oninput="setTransformFromInputs()">
+                    </div>
+                    <div class="col-6">
+                      <input type="number" class="form-control" id="posY" placeholder="Y" oninput="setTransformFromInputs()">
+                    </div>
+                    <div class="col-6">
+                      <input type="number" class="form-control" id="sizeW" placeholder="W" oninput="setTransformFromInputs()">
+                    </div>
+                    <div class="col-6">
+                      <input type="number" class="form-control" id="sizeH" placeholder="H" oninput="setTransformFromInputs()">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Rotate</span>
+                  <input type="range" class="form-range" id="rotate" min="-180" max="180" step="1" oninput="updateProp('angle', clampNum(this.value,-180,180))">
+                </div>
+
+                <div id="text-props" style="display:none;">
+                  <div class="prop-row">
+                    <span class="prop-label">Font</span>
+                    <select class="form-select" id="fontFamily" onchange="updateProp('fontFamily', this.value)">
+                      <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Impact">Impact</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="cursive">Cursive</option>
+                    </select>
+                  </div>
+
+                  <div class="prop-row">
+                    <span class="prop-label">Font size</span>
+                    <input type="range" class="form-range" id="fontSize" min="8" max="120" step="1" oninput="updateProp('fontSize', clampNum(this.value,8,120))">
+                  </div>
+
+                  <div class="prop-row">
+                    <span class="prop-label">Letter spacing</span>
+                    <input type="range" class="form-range" id="charSpacing" min="-200" max="1200" step="10" oninput="updateProp('charSpacing', clampNum(this.value,-200,1200))">
+                  </div>
+
+                  <div class="prop-row">
+                    <span class="prop-label">Line height</span>
+                    <input type="range" class="form-range" id="lineHeight" min="0.7" max="2.2" step="0.05" oninput="updateProp('lineHeight', clampNum(this.value,0.7,2.2))">
+                  </div>
+
+                  <div class="d-flex gap-2 mb-3">
+                    <button class="btn btn-light border flex-grow-1 rounded-pill fw-bold" onclick="toggleStyle('bold')"><i class="fa-solid fa-bold me-2"></i>Bold</button>
+                    <button class="btn btn-light border flex-grow-1 rounded-pill fw-bold" onclick="toggleStyle('italic')"><i class="fa-solid fa-italic me-2"></i>Italic</button>
+                    <button class="btn btn-light border flex-grow-1 rounded-pill fw-bold" onclick="toggleStyle('underline')"><i class="fa-solid fa-underline me-2"></i>Underline</button>
+                  </div>
+
+                  <div class="prop-row">
+                    <span class="prop-label">Text alignment</span>
+                    <div class="btn-group w-100" role="group">
+                      <button class="btn btn-outline-secondary btn-sm" onclick="updateProp('textAlign','left')"><i class="fa-solid fa-align-left"></i></button>
+                      <button class="btn btn-outline-secondary btn-sm" onclick="updateProp('textAlign','center')"><i class="fa-solid fa-align-center"></i></button>
+                      <button class="btn btn-outline-secondary btn-sm" onclick="updateProp('textAlign','right')"><i class="fa-solid fa-align-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="prop-row mt-4 pt-3 border-top">
+                  <span class="prop-label">Layering</span>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-light border rounded-pill fw-bold flex-grow-1" onclick="moveLayer('up')">Forward</button>
+                    <button class="btn btn-light border rounded-pill fw-bold flex-grow-1" onclick="moveLayer('down')">Back</button>
+                    <button class="btn btn-light border rounded-pill fw-bold flex-grow-1" onclick="moveLayer('top')">To Front</button>
+                    <button class="btn btn-light border rounded-pill fw-bold flex-grow-1" onclick="moveLayer('bottom')">To Back</button>
+                  </div>
+                </div>
+
+                <div class="prop-row">
+                  <span class="prop-label">Duplicate</span>
+                  <button class="btn btn-outline-primary w-100 rounded-pill fw-bold" onclick="duplicateActive()">
+                    Duplicate selected
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- LAYERS TAB -->
+            <div class="tab-pane fade" id="tabLayers" role="tabpanel">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="prop-label mb-0">Layers</span>
+                <button class="btn btn-light border rounded-pill fw-bold btn-sm" onclick="renderLayers()">
+                  <i class="fa-solid fa-rotate me-2"></i>Refresh
+                </button>
+              </div>
+              <div id="layersList"></div>
+              <div class="hint-card">
+                Tip: The top item is the front layer. Use the eye to hide and the lock to prevent edits.
+              </div>
+            </div>
+          </div>
+
+          <div class="price-box">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-bold">Total</span>
+              <span class="fw-bold text-primary" id="totalPrice">$120.00</span>
+            </div>
+
+            <button class="btn btn-primary w-100 fw-bold py-2 mb-2 rounded-pill" onclick="saveAndCart()">
+              Add to Cart <i class="fa-solid fa-cart-shopping ms-2"></i>
+            </button>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary w-100 rounded-pill fw-bold" onclick="openExport()">
+                Export
+              </button>
+              <button class="btn btn-outline-secondary w-100 rounded-pill fw-bold" onclick="downloadImageQuick()">
+                Quick PNG
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QR MODAL -->
+  <div class="modal fade" id="qrModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header">
+          <h5 class="modal-title fs-6 fw-bold">Generate QR Code</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label class="small fw-bold mb-2">Website URL</label>
+          <input type="text" id="qrInput" class="form-control mb-3" placeholder="https://..." value="https://springwaterpromotions.com">
+          <button class="btn btn-dark w-100 rounded-pill fw-bold" onclick="generateQR()">Create QR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIPART MODAL -->
+  <div class="modal fade" id="clipModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header">
+          <h5 class="modal-title fs-6 fw-bold">Clipart Library</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
+            <div class="text-muted">Click any icon to add it to your label.</div>
+            <button class="btn btn-light border rounded-pill fw-bold btn-sm" onclick="addWatermarkStamp()">
+              <i class="fa-solid fa-stamp me-2"></i>Add “PURE” Stamp
+            </button>
+          </div>
+          <div class="row g-3" id="clipGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT MODAL -->
+  <div class="modal fade" id="exportModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header">
+          <h5 class="modal-title fs-6 fw-bold">Export</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="hint-card">
+                <div class="fw-bold mb-2">Print ready tips</div>
+                <div class="text-muted">
+                  Keep important text inside the green safe area, and extend backgrounds past the red bleed line if you want edge to edge color.
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <span class="prop-label">Resolution</span>
+                <select class="form-select" id="exportScale">
+                  <option value="2">2x (Recommended)</option>
+                  <option value="3">3x (High)</option>
+                  <option value="4">4x (Ultra)</option>
+                </select>
+              </div>
+
+              <div class="mt-3">
+                <span class="prop-label">Options</span>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="exportTransparent">
+                  <label class="form-check-label fw-bold" for="exportTransparent">Transparent background</label>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 mt-3 flex-wrap">
+                <button class="btn btn-primary rounded-pill fw-bold px-4" onclick="exportPNG()">
+                  Download PNG
+                </button>
+                <button class="btn btn-outline-primary rounded-pill fw-bold px-4" onclick="exportPDF()">
+                  Download PDF
+                </button>
+                <button class="btn btn-light border rounded-pill fw-bold px-4" onclick="copyPNGToClipboard()">
+                  Copy PNG
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <span class="prop-label">Preview</span>
+              <div class="p-3 border rounded-4 bg-white" style="box-shadow:0 14px 28px rgba(15,23,42,0.08);">
+                <img id="exportPreview" alt="Preview" style="width:100%; height:auto; border-radius:16px; border:1px solid rgba(226,232,240,0.9);">
+              </div>
+              <div class="text-muted mt-2">
+                Preview updates automatically when you open export.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-light border rounded-pill fw-bold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAFTS MODAL -->
+  <div class="modal fade" id="draftsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header">
+          <h5 class="modal-title fs-6 fw-bold">Drafts</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-primary rounded-pill fw-bold px-3" onclick="saveDraftPrompt()">
+                <i class="fa-solid fa-floppy-disk me-2"></i>Save current draft
+              </button>
+              <button class="btn btn-light border rounded-pill fw-bold px-3" onclick="createNewDraft()">
+                <i class="fa-solid fa-file-circle-plus me-2"></i>New draft
+              </button>
+            </div>
+            <button class="btn btn-outline-danger rounded-pill fw-bold px-3" onclick="clearDrafts()">
+              Clear all
+            </button>
+          </div>
+
+          <div id="draftsList" class="row g-3"></div>
+
+          <div class="hint-card mt-3">
+            Autosave runs while you work. Drafts are stored locally in your browser.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHORTCUTS MODAL -->
+  <div class="modal fade" id="shortcutsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header">
+          <h5 class="modal-title fs-6 fw-bold">Keyboard shortcuts</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="hint-card">
+                <div class="fw-bold mb-2">Editing</div>
+                <div class="d-flex justify-content-between"><span>Undo</span><span class="kbd">Ctrl</span> <span class="kbd">Z</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Redo</span><span class="kbd">Ctrl</span> <span class="kbd">Shift</span> <span class="kbd">Z</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Copy</span><span class="kbd">Ctrl</span> <span class="kbd">C</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Paste</span><span class="kbd">Ctrl</span> <span class="kbd">V</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Duplicate</span><span class="kbd">Ctrl</span> <span class="kbd">D</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Delete</span><span class="kbd">Del</span></div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="hint-card">
+                <div class="fw-bold mb-2">Canvas</div>
+                <div class="d-flex justify-content-between"><span>Save draft</span><span class="kbd">Ctrl</span> <span class="kbd">S</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Toggle grid</span><span class="kbd">Ctrl</span> <span class="kbd">G</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Nudge</span><span class="kbd">Arrows</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Nudge faster</span><span class="kbd">Shift</span> + <span class="kbd">Arrows</span></div>
+                <div class="d-flex justify-content-between mt-2"><span>Export</span><span class="kbd">Ctrl</span> <span class="kbd">E</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-muted mt-3">
+            On Mac, use Command instead of Ctrl.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
